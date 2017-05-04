@@ -1,6 +1,10 @@
 # BergenMLMeetup
 Resources for Bergen Machine Learning Meetup
 
+### Kaggle problem picker
+Put your name down for one chosen Kaggle competition
+https://docs.google.com/spreadsheets/d/1biHyuU6RWvmHkrjD6-DituNW0Rq8IBLu5Pm7VOIh_8I/edit?usp=sharing
+
 # Compute resources / installation instructions
 
 ### Free
