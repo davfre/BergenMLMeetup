@@ -1,0 +1,109 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+set.seed(1)
+train <- read.csv("train.csv", stringsAsFactors=FALSE)
+test  <- read.csv("test.csv",  stringsAsFactors=FALSE)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+```{r}
+#inspect data
+head(train)
+summary(train)
+```
+
+```{r}
+selected_features <- c("Pclass","Age","Sex","Parch","SibSp","Fare","Embarked")
+
+extractFeatures <- function(data) {
+  features <- c("Pclass",
+                "Age",
+                "Sex",
+                "Parch",
+                "SibSp",
+                "Fare",
+                "Embarked")
+  fea <- data[,features]
+  fea$Age[is.na(fea$Age)] <- -1
+  fea$Fare[is.na(fea$Fare)] <- median(fea$Fare, na.rm=TRUE)
+  fea$Embarked[fea$Embarked==""] = "S"
+  fea$Sex      <- as.factor(fea$Sex)
+  fea$Embarked <- as.factor(fea$Embarked)
+  return(fea)
+}
+```
+
+```{r}
+# standard random forest
+library(randomForest)
+rf1 <- randomForest(extractFeatures(train), as.factor(train$Survived), ntree=100, importance=TRUE)
+
+importance(rf1,type=1)
+
+```
+
+make predictions
+```{r}
+submission <- data.frame(PassengerId = test$PassengerId)
+submission$Survived <- predict(rf1, extractFeatures(test))
+
+```
+
+
+```{r}
+#export predictions
+
+write.csv(submission, file = "1_random_forest_r_submission.csv", row.names=FALSE)
+```
+
+
+### H2O implementation
+
+```{r}
+# H2O implementation
+library(h2o)
+localH2O <- h2o.init()
+```
+
+```{r}
+h2o.importFile()
+train.hex = h2o.importFile("C:\\Users/davfre/Documents/projects_other/kaggle_titanic/train.csv", destination_frame = "train.hex")
+test.hex = h2o.importFile(path = "C:\\Users/davfre/Documents/projects_other/kaggle_titanic/test.csv", destination_frame = "test.hex")
+
+train.hex$Survived = h2o.asfactor(train.hex$Survived)
+```
+
+train
+```{r}
+N_FOLDS = 10
+model_rf = h2o.randomForest(x = 3:ncol(train.hex),
+                                 y = 2,
+                                 training_frame = train.hex,
+                                 nfolds = N_FOLDS,
+                                 fold_assignment = 'Stratified',
+#                             fold_column = 'fold',
+                                 model_id = "rf1",
+                                 keep_cross_validation_predictions = TRUE,
+                                 seed = 3345,
+                                 balance_classes = FALSE)
+```
+
+```{r}
+summary(model_rf)
+```
+
+
+```{r}
+submission = test$Passengerid
+submission$Survived = as.data.frame(h2o.predict(model_rf,test.hex))[,1]
+write.csv(submission, file="rf_h2o_submission.csv",row.names=FALSE)
+```
+
