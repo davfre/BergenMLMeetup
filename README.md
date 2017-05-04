@@ -5,7 +5,7 @@ Resources for Bergen Machine Learning Meetup
 
 ### Free
 - Kaggle Kernels (limited to 10 min computation) www.kaggle.com
-- AzureML: use free tier with Microsoft account. Graphical workflow, jupyter notebooks, R notebooks
+- AzureML: https://studio.azureml.net/ use free tier with Microsoft account. Graphical workflow, jupyter notebooks, R notebooks
 - Intel Colfax (for Cervical cancer competition): https://www.kaggle.com/c/intel-mobileodt-cervical-cancer-screening#Intel-Tutorial
 
   Sign-up URL: https://colfaxresearch.com/kaggle-2017/
