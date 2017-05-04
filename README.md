@@ -12,12 +12,17 @@ Resources for Bergen Machine Learning Meetup
   Passcode required for sign-up: KAG17CFX
   Access Timeline: Available through June 21st 12.00 pm PT
 
-### Paid
-- AWS GPU instance http://wiki.fast.ai/index.php/AWS_install
+- Local Python environment: www.continuum.io
+- Local R environment: install R https://cran.r-project.org/, install www.rstudio.com
 - Setting up your own deep learning machine (Requires Nvidia GPU supporting CUDA, recommended Geforce 970 or faster)
 http://wiki.fast.ai/index.php/Installation
 http://ankivil.com/installing-keras-theano-and-dependencies-on-windows-10/
 
+### Paid
+
+- AWS CPU or GPU instance http://wiki.fast.ai/index.php/AWS_install
+- AWS spot instances (cheaper, more complexity): https://github.com/simonm3/xdrive
+
 # Tutorials / courses
-AzureML Titanic tutorial: https://blogs.msdn.microsoft.com/cdndevs/2016/05/13/would-you-have-survived-the-titanic-try-this-step-by-step-machine-learning-experiment-to-find-out/
-fast.ai deep Learning course: http://course.fast.ai
+- AzureML Titanic tutorial: https://blogs.msdn.microsoft.com/cdndevs/2016/05/13/would-you-have-survived-the-titanic-try-this-step-by-step-machine-learning-experiment-to-find-out/
+- fast.ai deep Learning course: http://course.fast.ai
